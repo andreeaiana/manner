@@ -1,0 +1,33 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: adressa_rec.yaml
+  - override /model: ensemble_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["ensemble", "adressa"]
+
+seed: 44
+
+train: False
+
+model:
+  cr_module_module_ckpt: "logs/train/runs/cr_module_adressa_scl_lf_s44/2023-06-14_17-36-18/checkpoints/epoch_001.ckpt"
+  a_module_categ_ckpt: "logs/train/runs/a_module_categ_adressa_s44/2023-06-15_12-58-36/checkpoints/epoch_051.ckpt"
+  a_module_sent_ckpt: "logs/train/runs/a_module_sent_adressa_s44/2023-06-15_09-13-22/checkpoints/epoch_097.ckpt"
+  categ_weight: 0
+  sent_weight: 0
+
+logger:
+  wandb:
+    name: "ensemble_adressa_s44"
+    tags: ${tags}
+    group: "adressa"

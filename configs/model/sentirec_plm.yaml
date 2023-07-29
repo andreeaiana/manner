@@ -1,0 +1,24 @@
+_target_: manner.models.baselines.sentirec_plm_module.SentiRecPLMModule
+
+# news encoder
+plm_model: ""
+frozen_layers: [0, 1, 2, 3, 4, 5, 6, 7]
+dropout_probability: 0.2
+text_embedding_dim: 768
+num_attention_heads: 16
+query_vector_dim: 200
+
+# sentiment prediction
+senti_pred_loss_coef: 0.4
+
+# sentiment diversity regularization
+senti_div_loss_coef: 10
+
+# evaluation
+num_categ_classes: 19 # 18 + 1
+num_sent_classes: 4 # 3 + 1
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: True
+  lr: 0.00001

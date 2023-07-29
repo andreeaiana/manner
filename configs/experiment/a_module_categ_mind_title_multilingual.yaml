@@ -1,0 +1,44 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_news.yaml
+  - override /model: a_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: wandb.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["aspect", "categ", "mind", "title", "multilingual"]
+
+seed: 42
+
+data:
+  text_aspects: ["title"]
+  aspect: "category"
+  batch_size: 360
+  tokenizer_name: distilbert-base-multilingual-cased
+
+model:
+  frozen_layers: []
+  plm_model: distilbert-base-multilingual-cased
+  labels_path: ${paths.data_dir}MIND${data.size}_train/categ2index.tsv
+  use_entities: False
+  temperature: 0.9
+
+trainer:
+  max_epochs: 100
+
+callbacks:
+  early_stopping:
+    patience: 10
+
+logger:
+  wandb:
+    name: "a_module_categ_mind_title_multilingual_s42"
+    tags: ${tags}
+    group: "mind"

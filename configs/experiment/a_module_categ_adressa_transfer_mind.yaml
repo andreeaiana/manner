@@ -1,0 +1,48 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_news.yaml
+  - override /model: a_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: wandb.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["aspect", "categ", "adressa", "transfer"]
+
+seed: 42
+
+data:
+  aspect: "category"
+  batch_size: 360
+  tokenizer_name: distilbert-base-multilingual-cased
+  text_aspects: ["title"]
+
+model:
+  frozen_layers: []
+  plm_model: distilbert-base-multilingual-cased
+  labels_path: ${paths.data_dir}MINDlarge_train/categ2index.tsv
+  temperature: 0.9
+  use_entities: False
+
+trainer:
+  max_epochs: 100
+
+callbacks:
+  early_stopping:
+    patience: 10
+
+logger:
+  wandb:
+    name: "a_module_categ_adressa_transfer_mind_s42"
+    tags: ${tags}
+    group: "transfer"
+
+ckpt_path: "logs/train/runs/a_module_categ_adressa_multilingual_s42/2023-07-03_19-04-15/checkpoints/epoch_099.ckpt"
+
+train: False

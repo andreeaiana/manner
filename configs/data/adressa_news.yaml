@@ -1,0 +1,44 @@
+_target_: manner.data.adressa_news_datamodule.AdressaNewsDataModule
+
+seed: ${seed}
+
+# URLs for downloading the dataset
+adressa_url: https://reclab.idi.ntnu.no/dataset/one_week.tar.gz
+categ_embeddings_url: https://bpemb.h-its.org/no/no.wiki.bpe.vs200000.d300.w2v.txt.tar.gz
+
+# File names and paths
+data_dir: ${paths.data_dir}
+adressa_gzip_filename: Adressa_one_week.tar.gz
+categ_embeddings_dirname: glove
+categ_embeddings_fpath: ${paths.data_dir}/glove/no.wiki.bpe.vs200000.d300.w2v.txt
+
+id2index_filenames:
+  uid2index: uid2index_${seed}.tsv
+  categ2index: categ2index.tsv
+  sentiment2index: sentiment2index.tsv
+  nid2index: nid2index.tsv
+
+# Data preprocessing
+aspect: sentiment # sentiment, category
+
+categ_embedding_dim: 300
+sentiment_model: cardiffnlp/twitter-xlm-roberta-base-sentiment
+tokenizer_max_length: 96
+
+train_day: 6
+test_day: 7
+
+neg_num: 20
+user_dev_size: 0.2
+
+# Datamodule parameters
+tokenizer_name: NbAiLab/nb-bert-base
+tokenizer_use_fast: True
+
+# Datamodule parameters
+samples_per_class: 20
+batch_size: 60
+num_workers: 0
+pin_memory: True
+drop_last: False 
+

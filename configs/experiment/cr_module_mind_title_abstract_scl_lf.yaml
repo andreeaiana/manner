@@ -1,0 +1,34 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_rec.yaml
+  - override /model: cr_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["cr_module", "mind", "scl", "lf"]
+
+seed: 42
+
+data:
+  text_aspects: ["title", "abstract"]
+
+model:
+  plm_model: roberta-base
+  supcon_loss: True
+  late_fusion: True
+  temperature: 0.36
+  use_entities: False
+
+logger:
+  wandb:
+    name: "cr_module_mind_title_abstract_scl_lf_s42"
+    tags: ${tags}
+    group: "mind"

@@ -1,0 +1,35 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_rec.yaml
+  - override /model: cr_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["cr_module", "mind", "all", "scl", "ef"]
+
+seed: 42
+
+data:
+  text_aspects: ["title", "abstract"]
+  entity_aspects: ["title_entities", "abstract_entities"]
+
+model:
+  plm_model: roberta-base
+  pretrained_entity_embeddings_path: ${paths.data_dir}MIND${data.size}_train/entity_embedding.npy
+  supcon_loss: True
+  late_fusion: False
+  temperature: 0.36
+
+logger:
+  wandb:
+    name: "cr_module_mind_all_scl_ef_s42"
+    tags: ${tags}
+    group: "mind"

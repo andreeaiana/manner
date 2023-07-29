@@ -1,0 +1,36 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_rec.yaml
+  - override /model: cr_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["cr_module", "mind", "title", "scl", "lf", "multilingual"]
+
+seed: 42
+
+data:
+  text_aspects: ["title"]
+  tokenizer_name: distilbert-base-multilingual-cased
+
+model:
+  frozen_layers: []
+  plm_model: distilbert-base-multilingual-cased
+  supcon_loss: True
+  late_fusion: True
+  temperature: 0.2
+  use_entities: False
+
+logger:
+  wandb:
+    name: "cr_module_mind_title_scl_lf_multilingual_s42"
+    tags: ${tags}
+    group: "mind"

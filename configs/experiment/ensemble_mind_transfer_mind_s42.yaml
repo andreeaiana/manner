@@ -1,0 +1,37 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_rec.yaml
+  - override /model: ensemble_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["ensemble", "mind", "mind_transfer_mind"]
+
+seed: 42
+
+train: False
+
+data:
+  text_aspects: ["title"]
+  tokenizer_name: distilbert-base-multilingual-cased
+
+model:
+  cr_module_module_ckpt: "logs/train/runs/cr_module_mind_title_scl_lf_multilingual_s42/2023-07-04_03-39-27/checkpoints/epoch_003.ckpt"
+  a_module_categ_ckpt: "logs/train/runs/a_module_categ_mind_title_multilingual_s42/2023-07-03_22-25-47/checkpoints/epoch_099.ckpt"
+  a_module_sent_ckpt: "logs/train/runs/a_module_sent_mind_title_multilingual_s42/2023-07-03_21-45-01/checkpoints/epoch_099.ckpt"
+  categ_weight: 0
+  sent_weight: 0
+
+logger:
+  wandb:
+    name: "ensemble_mind_transfer_mind_s42"
+    tags: ${tags}
+    group: "transfer"

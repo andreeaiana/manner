@@ -1,0 +1,32 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_rec.yaml
+  - override /model: miner.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["miner", "mind", "baseline"]
+
+seed: 42
+
+data:
+  text_aspects: ["title"]
+
+model:
+  plm_model: roberta-base
+  pretrained_category_embeddings_path: ${paths.data_dir}MIND${data.size}_train/categ_embedding.npy
+  score_type: 'weighted' # max, mean, weighted
+
+logger:
+  wandb:
+    name: "miner_weighted_mind_s42"
+    tags: ${tags}
+    group: "mind"

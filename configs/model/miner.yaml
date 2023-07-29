@@ -1,0 +1,25 @@
+_target_: manner.models.baselines.miner_module.MINERModule
+
+# news encoder
+plm_model: ""
+frozen_layers: [0, 1, 2, 3, 4, 5, 6, 7]
+apply_reduce_dim: True
+text_embedding_dim: 768
+news_embedding_dim: 256
+dropout_probability: 0.2
+
+pretrained_category_embeddings_path: null
+category_embedding_dim: 300
+use_category_bias: True
+num_context_codes: 32
+context_code_dim: 200
+score_type: 'weighted'
+
+# evaluation
+num_categ_classes: 19 # 18 + 1
+num_sent_classes: 4 # 3 + 1
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: True
+  lr: 0.00001

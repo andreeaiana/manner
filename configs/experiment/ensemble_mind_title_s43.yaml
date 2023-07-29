@@ -1,0 +1,37 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: mind_rec.yaml
+  - override /model: ensemble_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["ensemble", "mind", "title"]
+
+seed: 43
+
+train: False
+
+data:
+  text_aspects: ["title"]
+  entity_aspects: ["title_entities", "abstract_entities"]
+
+model:
+  cr_module_module_ckpt: "logs/train/runs/cr_module_mind_title_scl_lf_s43/2023-06-18_15-01-53/checkpoints/epoch_000.ckpt"
+  a_module_categ_ckpt: "logs/train/runs/a_module_categ_mind_title_s43/2023-06-17_03-35-34/checkpoints/epoch_000.ckpt"
+  a_module_sent_ckpt: "logs/train/runs/a_module_sent_mind_title_s43/2023-06-17_04-01-59/checkpoints/epoch_008.ckpt"
+  categ_weight: 0
+  sent_weight: 0
+
+logger:
+  wandb:
+    name: "ensemble_mind_title_s43"
+    tags: ${tags}
+    group: "mind"

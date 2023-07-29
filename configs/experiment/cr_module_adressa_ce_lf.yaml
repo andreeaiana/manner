@@ -1,0 +1,40 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: adressa_rec.yaml
+  - override /model: cr_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["cr_module", "adressa", "ce", "lf"]
+
+seed: 42
+
+model:
+  plm_model: NbAiLab/nb-bert-base
+  supcon_loss: False
+  late_fusion: True
+  temperature: 0.1
+  use_entities: False
+  optimizer:
+    lr: 0.000001
+
+callbacks:
+  early_stopping:
+    patience: 12
+
+trainer:
+  max_epochs: 20
+  
+logger:
+  wandb:
+    name: "cr_module_adressa_ce_lf_s42"
+    tags: ${tags}
+    group: "adressa"

@@ -1,0 +1,42 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: adressa_rec.yaml
+  - override /model: senti_debias_plm.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["senti_debias", "adressa", "baseline"]
+
+seed: 42
+
+model:
+  plm_model: NbAiLab/nb-bert-base
+  optimizer_generator:
+    lr: 0.000001
+  optimizer_discriminator:
+    lr: 0.000002
+
+callbacks:
+  early_stopping:
+    monitor: "val/acc"
+    patience: 12
+  model_checkpoint:
+    monitor: "val/acc"
+    mode: "max"
+
+trainer:
+  max_epochs: 20
+
+logger:
+  wandb:
+    name: "senti_debias_adressa_s42"
+    tags: ${tags}
+    group: "adressa"

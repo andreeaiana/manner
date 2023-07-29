@@ -1,0 +1,23 @@
+_target_: manner.models.baselines.mins_plm_module.MINSPLMModule
+
+# news encoder
+plm_model: ""
+frozen_layers: [0, 1, 2, 3, 4, 5, 6, 7]
+dropout_probability: 0.2
+text_embedding_dim: 768
+num_attention_heads: 16
+query_vector_dim: 200
+category_embedding_dim: 100
+
+# user encoder
+num_filters: 768
+num_gru_channels: 6
+
+# evaluation
+num_categ_classes: 19 # 18 + 1
+num_sent_classes: 4 # 3 + 1
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: True
+  lr: 0.00001

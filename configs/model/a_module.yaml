@@ -1,0 +1,21 @@
+_target_: manner.models.a_module.AModule
+
+# training
+temperature: 0.1
+labels_path: ""
+
+# news encoder
+plm_model: ""
+frozen_layers: [0, 1, 2, 3, 4, 5, 6, 7]
+dropout_probability: 0.2
+use_entities: True
+pretrained_entity_embeddings_path: ""
+entity_embedding_dim: 100
+num_attention_heads: 10
+query_vector_dim: 200
+text_embedding_dim: 768
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: True
+  lr: 0.00001

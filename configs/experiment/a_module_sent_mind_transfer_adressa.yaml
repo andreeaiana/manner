@@ -1,0 +1,49 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: adressa_news.yaml
+  - override /model: a_module.yaml
+  - override /callbacks: default.yaml
+  - override /logger: wandb.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["aspect", "sent", "mind", "transfer"]
+
+seed: 42
+
+data:
+  aspect: "sentiment"
+  batch_size: 60
+  tokenizer_name: distilbert-base-multilingual-cased
+
+model:
+  frozen_layers: []
+  plm_model: distilbert-base-multilingual-cased
+  labels_path: ${paths.data_dir}Adressa_train/sentiment2index.tsv
+  use_entities: False
+  temperature: 0.9
+  optimizer:
+    lr: 0.000001
+
+trainer:
+  max_epochs: 100
+
+callbacks:
+  early_stopping:
+    patience: 10
+
+logger:
+  wandb:
+    name: "a_module_sent_mind_transfer_adressa_s42"
+    tags: ${tags}
+    group: "transfer"
+
+ckpt_path: "logs/train/runs/a_module_sent_mind_title_multilingual_s42/2023-07-03_21-45-01/checkpoints/epoch_099.ckpt"
+
+train: False

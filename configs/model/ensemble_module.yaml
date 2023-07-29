@@ -1,0 +1,9 @@
+_target_: manner.models.ensemble_module.EnsembleModule
+
+cr_module_module_ckpt: null
+a_module_categ_ckpt: null
+a_module_sent_ckpt: null
+categ_weight: 0
+sent_weight: 0
+num_categ_classes: 19 # 18 + 1
+num_sent_classes: 4 # 3 + 1

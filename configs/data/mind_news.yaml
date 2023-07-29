@@ -1,0 +1,53 @@
+_target_: manner.data.mind_news_datamodule.MINDNewsDataModule
+
+# Dataset type
+size: large # choose from: large, small, demo
+
+# URLs for downloading the dataset
+mind_urls:
+  large:
+    train: https://mind201910small.blob.core.windows.net/release/MINDlarge_train.zip
+    dev: https://mind201910small.blob.core.windows.net/release/MINDlarge_dev.zip
+  small:
+    train: https://mind201910small.blob.core.windows.net/release/MINDsmall_train.zip
+    dev: https://mind201910small.blob.core.windows.net/release/MINDsmall_dev.zip
+  demo:
+    train: https://recodatasets.z20.web.core.windows.net/newsrec/MINDdemo_train.zip"
+    dev: https://recodatasets.z20.web.core.windows.net/newsrec/MINDdemo_dev.zip
+categ_embeddings_url:
+  "https://nlp.stanford.edu/data/glove.840B.300d.zip"
+
+# File names and paths
+data_dir: ${paths.data_dir}
+categ_embeddings_dirname: glove
+categ_embeddings_fpath: ${paths.data_dir}/glove/glove.840B.300d.txt
+
+id2index_filenames:
+  uid2index: uid2index.tsv
+  categ2index: categ2index.tsv
+  sentiment2index: sentiment2index.tsv
+  entity2index: entity2index.tsv
+
+# Data preprocessing
+aspect: sentiment # sentiment, category
+text_aspects: ["title", "abstract"]
+entity_aspects: ["title_entities", "abstract_entities"]
+
+categ_embedding_dim: 300
+entity_embedding_dim: 100
+entity_freq_threshold: 2
+entity_confidence_threshold: 0.5
+
+sentiment_model: cardiffnlp/twitter-xlm-roberta-base-sentiment
+tokenizer_max_length: 96
+
+# Datamodule parameters
+tokenizer_name: roberta-base
+tokenizer_use_fast: True
+
+# Datamodule parameters
+samples_per_class: 20
+batch_size: 60
+num_workers: 0
+pin_memory: True
+drop_last: False

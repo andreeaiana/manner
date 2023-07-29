@@ -1,0 +1,38 @@
+# @package _global_
+
+# to execute this experiment run:
+# python train.py experiment=example
+
+defaults:
+  - override /data: adressa_rec.yaml
+  - override /model: miner.yaml
+  - override /callbacks: default.yaml
+  - override /logger: many_loggers.yaml
+  - override /trainer: gpu.yaml
+
+# all parameters below will be merged with parameters from default configurations set above
+# this allows you to overwrite only specified parameters
+
+tags: ["miner", "adressa", "baseline"]
+
+seed: 42
+
+model:
+  plm_model: NbAiLab/nb-bert-base
+  pretrained_category_embeddings_path: ${paths.data_dir}Adressa_train/categ_embedding.npy
+  score_type: 'mean' # max, mean, weighted
+  optimizer:
+    lr: 0.000001
+
+callbacks:
+  early_stopping:
+    patience: 12
+
+trainer:
+  max_epochs: 20
+
+logger:
+  wandb:
+    name: "miner_mean_adressa_s42"
+    tags: ${tags}
+    group: "adressa"
