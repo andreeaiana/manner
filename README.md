@@ -55,3 +55,16 @@ Run ensemble (CR-Module + A-Module) with trained sub-modules with chosen experim
 ```bash
 python src/train.py experiment=experiment_name.yaml train=False
 ```
+
+## Citation
+
+```bibtex
+@misc{iana2023train,
+      title={Train Once, Use Flexibly: A Modular Framework for Multi-Aspect Neural News Recommendation}, 
+      author={Andreea Iana and Goran Glavaš and Heiko Paulheim},
+      year={2023},
+      eprint={2307.16089},
+      archivePrefix={arXiv},
+      primaryClass={cs.IR}
+}
+```
