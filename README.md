@@ -9,6 +9,8 @@
 
 </div>
 
+A NEW VERSION OF THE FRAMEWORK IS AVAILABLE IN [NewsRecLib](https://github.com/andreeaiana/newsreclib)
+
 ## Description
 
 This is the implementation of the MANNeR framework from the paper "Train Once, Use Flexibly: A Modular Framework for Multi-Aspect Neural News Recommendation"
