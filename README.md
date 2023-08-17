@@ -9,7 +9,7 @@
 
 </div>
 
-A NEW VERSION OF THE FRAMEWORK IS AVAILABLE IN [NewsRecLib](https://github.com/andreeaiana/newsreclib)
+### A NEW VERSION OF THE FRAMEWORK IS OUT IN [NewsRecLib](https://github.com/andreeaiana/newsreclib)
 
 ## Description
 
