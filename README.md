@@ -40,22 +40,22 @@ pip install -r requirements.txt
 Train model with chosen experiment configuration from [configs/experiment/](configs/experiment/)
 
 ```bash
-python src/train.py experiment=experiment_name.yaml
+python manner/train.py experiment=experiment_name.yaml
 ```
 
 You can override any parameter from command line like this
 
 ```bash
-python src/train.py trainer.max_epochs=20 data.batch_size=64
+python manner/train.py trainer.max_epochs=20 data.batch_size=64
 
 # train on GPU
-python src/train.py trainer=gpu
+python manner/train.py trainer=gpu
 ```
 
 Run ensemble (CR-Module + A-Module) with trained sub-modules with chosen experiment configuration from [configs/experiment/](configs/experiment/)
 
 ```bash
-python src/train.py experiment=experiment_name.yaml train=False
+python manner/train.py experiment=experiment_name.yaml train=False
 ```
 
 ## Citation
